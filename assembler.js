@@ -50,8 +50,8 @@ function SimulatorWidget(node) {
     $node.find('.stepButton').click(simulator.debugExec);
     $node.find('.gotoButton').click(simulator.gotoAddr);
     $node.find('.notesButton').click(ui.showNotes);
-    //$node.find('.saveButton').click(ui.saveCode);
-    $node.find('.notesButton').click(alert("hello world"));
+    $node.find('.saveButton').click(ui.saveCode);
+    //$node.find('.notesButton').click(alert("hello world")); it does work
     $node.find('.code').keypress(simulator.stop);
     $node.find('.code').keypress(ui.initialize);
     $(document).keypress(memory.storeKeypress);
