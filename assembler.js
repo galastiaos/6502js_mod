@@ -170,7 +170,8 @@ function SimulatorWidget(node) {
       debugOn: debugOn,
       debugOff: debugOff,
       toggleMonitor: toggleMonitor,
-      showNotes: showNotes
+      showNotes: showNotes,
+      saveCode: saveCode
     };
   }
 
