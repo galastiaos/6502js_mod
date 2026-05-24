@@ -50,6 +50,7 @@ function SimulatorWidget(node) {
     $node.find('.stepButton').click(simulator.debugExec);
     $node.find('.gotoButton').click(simulator.gotoAddr);
     $node.find('.notesButton').click(ui.showNotes);
+    $node.find('.saveButton').click(ui.saveCode);
     $node.find('.code').keypress(simulator.stop);
     $node.find('.code').keypress(ui.initialize);
     $(document).keypress(memory.storeKeypress);
@@ -151,6 +152,14 @@ function SimulatorWidget(node) {
 
     function showNotes() {
       $node.find('.messages code').html($node.find('.notes').html());
+    }
+    function saveCode(){
+      let result=prompt("Enter the name of your program","untitledProject")
+      let text=$node.find('textarea.code').val()
+      document.cookie = "data=" + encodeURIComponent(JSON.stringify({
+        projectname: result,
+        code: text
+      }));
     }
 
     return {
