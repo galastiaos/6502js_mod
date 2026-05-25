@@ -51,6 +51,7 @@ function SimulatorWidget(node) {
     $node.find('.gotoButton').click(simulator.gotoAddr);
     $node.find('.notesButton').click(ui.showNotes);
     $node.find('.saveButton').click(ui.saveCode);
+    $node.find('.loadButton').clicK(ui.loadCode);
     //$node.find('.notesButton').click(alert("hello world")); it does work
     $node.find('.code').keypress(simulator.stop);
     $node.find('.code').keypress(ui.initialize);
@@ -157,10 +158,32 @@ function SimulatorWidget(node) {
     function saveCode(){
       let result=prompt("Enter the name of your program","untitledProject")
       let text=$node.find('textarea.code').val()
-      document.cookie = "data=" + encodeURIComponent(JSON.stringify({
+      /*document.cookie = "data=" + encodeURIComponent(JSON.stringify({
         projectname: result,
         code: text
-      }));
+      })) + ";path=/";*/
+      document.cookie = encodeURIComponent(result) + "=" + encodeURIComponent(text) + "; path=/";
+    }
+    function loadCode(){
+      let infl=prompt("Enter the name of your save program","untitledProject")
+
+      let cookies = document.cookie.split("; ");
+      //let dataCookie = cookies.find(row => row.startsWith("data="));
+      let row = cookies.find(r => r.startsWith(encodeURIComponent(infl) + "="));
+
+      if(!row){
+        alert("Code not found");
+        return;
+      }
+
+      let data = JSON.parse(decodeURIComponent(dataCookie.split("=")[1]));
+
+      if(data.projectname !== infl){
+        alert("Project name does not match");
+        return;
+      }
+
+      $node.find('textarea.code').val(data.code);
     }
 
     return {
@@ -172,7 +195,8 @@ function SimulatorWidget(node) {
       debugOff: debugOff,
       toggleMonitor: toggleMonitor,
       showNotes: showNotes,
-      saveCode: saveCode
+      saveCode: saveCode,
+      loadCode: loadCode
     };
   }
 
